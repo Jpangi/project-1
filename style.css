@@ -1,0 +1,77 @@
+
+*{
+    background-color: lightgray;
+    font-size: 50px;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;      /* stack h1 and board vertically */
+  justify-content: center;     /* center them vertically together */
+  align-items: center;         /* center horizontally */
+  text-align: center;
+}
+
+.board{
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 64px;
+    color: black;
+    border: 3px solid black;
+    margin: 20px;
+    width: 55%;
+}
+
+.cards{
+    display: flex;
+    font-size: 1em;
+    border: 3px solid black;
+    padding: 10px;
+    margin:10px
+}
+
+.play-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 325px;
+}
+
+.sqr {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    border: 3px solid darkgreen;
+    width: 15%;
+    border-radius: 20%;
+    background-color: white;
+
+}
+
+.sqr:hover{
+    color: darkgreen;
+}
+
+.deck-size{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    gap: 40px;
+  
+}
+.deck-headings{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    gap: 40px;
+    
+}
