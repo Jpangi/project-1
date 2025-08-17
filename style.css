@@ -1,5 +1,6 @@
 
 *{
+    display: felx;
     background-color: lightgray;
     font-size: 50px;
 }
@@ -34,7 +35,7 @@ body {
     margin:10px
 }
 
-.play-btn {
+.play{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +50,7 @@ body {
     align-items: center;
     font-size: 32px;
     border: 3px solid darkgreen;
-    width: 15%;
+    width: 20%;
     border-radius: 20%;
     background-color: white;
 
