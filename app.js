@@ -2,13 +2,15 @@
 
 /*----------------------- variables -------------------*/
 const deck = [
-  { suits: ["heart", "diamond", "club", "spade"] },
+  { suits: ["♥️", "♦️", "♣️", "♠️"] },
   {
     ranks: [
       "ace","2","3", "4","5","6", "7","8","9", "10","jack", "queen","king",],
   },
   { values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] },
 ];
+
+
 
 const suits = deck[0].suits;
 const ranks = deck[1].ranks;
@@ -19,42 +21,57 @@ let playerDeck = [];
 let computerDeck = [];
 let playerCard =[];
 let computerCard =[];
+let winner = false;
 
 /*----------------------- Element references -------------------*/
 const msgEl = document.querySelector("#msg");
 const playEl = document.querySelector("#play-btn");
 const dealEl = document.querySelector("#deal-cards");
 const drawCardEl = document.querySelector("#draw-card");
+const shuffleDeckEl = document.querySelector("#shuffle-deck");
 // display elements for deck size
-const computerEl = document.querySelector("#computer");
-const playerEl = document.querySelector("#player");
+const computerEl = document.querySelector("#computer-deck");
+const playerEl = document.querySelector("#player-deck");
+const playerCardEl = document.querySelector("#player-card");
+const computerCardEl = document.querySelector("#computer-card");
 
 /*----------------------- Functions ----------------------------*/
-
-// initializes the board, deck and updates the board/Message
-const init = () =>{
-  board
+const resetGame =() =>{
+  const deck = [
+  { suits: ["♥️", "♦️", "♣️", "♠️"] },
+  {
+    ranks: [
+      "ace","2","3", "4","5","6", "7","8","9", "10","jack", "queen","king",],
+  },
+  { values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] },
+  ];
+  const suits = deck[0].suits;
+  const ranks = deck[1].ranks;
+  const values = deck[2].values;
+  let newDeck = [];
+  let playerDeck = [];
+  let computerDeck = [];
+  let playerCard =[];
+  let computerCard =[];
+  let winner = null;
 }
 
-const dealCards = () => {
+// creates the deck and shuffles it and splits it in half
+const initialize = (event) =>{
   createDeck();
   shuffleDeck(newDeck);
   // console.log(newDeck);
   splitDeck();
-  deckSize();
-};
+}
 
 const playGame = () =>{
   drawCards();
+  simpleGameLogic();
 }
 
-const resetGame = () =>{
 
-}
 
 /* ------ Deck Functions ------ */
-
-
 // creates all the combination of suits and values for each card
 const createDeck = () => {
   // loop through deck[i].suits[i] and store that in a card array
@@ -84,10 +101,12 @@ const splitDeck = () => {
 };
 
 // updates what the deck shows on the dom for each player
-const deckSize = () => {
+const displayCardUpdates = () =>{
+  playerCardEl.textContent = playerCard.card
+  computerCardEl.textContent = computerCard.card
   playerEl.textContent = playerDeck.length;
   computerEl.textContent = computerDeck.length;
-};
+}
 
 
 /* ------- game logic function ------*/
@@ -95,18 +114,29 @@ const deckSize = () => {
 // draw cards
 const drawCards = () => {
   playerCard = playerDeck.shift();
-  
   console.log('Player Card:',playerCard);
   console.log('Player Deck:',playerDeck);
   computerCard = computerDeck.shift();
   console.log('Computer Card:', computerCard);
   console.log('Computer Deck:', computerDeck);
-  deckSize();
+  displayCardUpdates();
 }
+
 
 const simpleGameLogic = () => {
   // if playerCard > compCard
-  
+  if(playerCard.value === computerCard.value){
+
+  }
+  else if(playerCard.value > computerCard.value){
+    playerDeck.push(playerCard,computerCard)
+    msgEl.textContent = `you win round!`
+  }else if(computerCard.value > playerCard.value ){
+    computerDeck.push(playerCard,computerCard)
+    msgEl.textContent = `computer wins round!`
+  }else{
+    console.log('error');
+  }
   // add both card to bottom of playerdeck and subtract compCard from CompDeck
 
 };
@@ -114,11 +144,12 @@ const simpleGameLogic = () => {
 
 
 
-
 /*----------------------- Event Listeners ----------------------------*/
-dealEl.addEventListener("click", dealCards);
+// dealEl.addEventListener("click", dealCards);
 // playEl.addEventListener("click", playGame);
-drawCardEl.addEventListener("click", playGame);
+shuffleDeckEl.addEventListener("click",initialize);
+drawCardEl.addEventListener("click",playGame);
+drawCardEl.addEventListener("click",render);
 
 
 
@@ -131,13 +162,11 @@ drawCardEl.addEventListener("click", playGame);
 // create a deck of cards
 // shuffles it
 
-
 // split the deck of cards in half
   // show number of cards for each player on DOM
   // update Message to say hit play button
 
-// press play
-// draws a card and updates it in the DOM(board)
+// draws a card and updates it in the DOM
 // if player > comp or comp > player give the 2 cards to whoever won
   // update Message "player or comp WON round"
   // adds the two cards to the back of the deck and subracts the card from the loser
