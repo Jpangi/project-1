@@ -128,6 +128,9 @@ button {
 #draw-card {
   border-radius: 50px 50px 50px 50px; /* big curve */
 }
+#shuffle-deck{
+    border-radius: 50px 50px 50px 50px; /* big curve */
+}
 
 button:hover{
    
