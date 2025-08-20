@@ -1,34 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="./app.js"></script>
-    <link rel="stylesheet" href="./style.css" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Lets play War! 🪖</h1>
-    <p id="msg"></p>
-    <main>
-      <section class="board">
-        <section class="player-head">
-          <div class="player-1">👤</div>
-          <div class="deck-size" id="player-deck"># of Cards</div>
-        </section>
-        <section id="card-display">
-          <div class="cards" id="player-card">♡</div>
-          <div class="cards" id="computer-card">♢</div>
-        </section>
-        <section class="computer-head">
-          <div class="computer-1">🤖</div>
-          <div class="deck-size" id="computer-deck"># of Cards</div>
-        </section>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script defer src="./app.js"></script>
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="nav">
+    <a class="nav-bar" href="./startScreen.html">Home</a>
+    <button class="nav-bar" id="reset-game">Reset</button>
+  </div>
+
+  <!-- Game Screen -->
+  <main id="game-screen">
+    <p id="msg">placeholder</p>
+    <section class="board">
+      <section class="player-head">
+        <div class="player-1"><i class="fa-solid fa-user"></i></div>
+        <div class="deck-size" id="player-deck"># of Cards</div>
       </section>
-      <section class="play">
-        <button class="sqr" id="draw-card">Draw Card</button>
-        <button class="sqr" id="shuffle-deck">Start Game</button>
+      <section id="card-display">
+        <div class="cards" id="player-card">♡</div>
+        <div class="cards" id="computer-card">♢</div>
       </section>
-    </main>
-  </body>
+      <section class="computer-head">
+        <div class="computer-1"><i class="fa-solid fa-robot"></i></div>
+        <div class="deck-size" id="computer-deck"># of Cards</div>
+      </section>
+    </section>
+    <section class="play">
+      <button class="sqr" id="draw-card">Draw Card</button>
+      <button class="sqr" id="shuffle-deck">Shuffle Deck</button>
+    </section>
+  </main>
+</body>
+
 </html>

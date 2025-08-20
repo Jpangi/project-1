@@ -1,7 +1,7 @@
 // board
 
 /*----------------------- variables -------------------*/
-const deck = [
+let deck = [
   { suits: ["♥️", "♦️", "♣️", "♠️"] },
   {
     ranks: [
@@ -25,11 +25,15 @@ let winner = false;
 let inRound = false;
 
 /*----------------------- Element references -------------------*/
+const startScreenDis = document.getElementById("start-screen");
+const startScreenBtn = document.getElementById("start-btn");
+const gameScreen = document.getElementById('game-screen');
 const msgEl = document.querySelector("#msg");
 const playEl = document.querySelector("#play-btn");
 const dealEl = document.querySelector("#deal-cards");
 const drawCardEl = document.querySelector("#draw-card");
 const startGameEl = document.querySelector("#shuffle-deck");
+const resetGame = document.getElementById('reset-game')
 // display elements for deck size
 const computerDeckEl = document.querySelector("#computer-deck");
 const playerDeckEl = document.querySelector("#player-deck");
@@ -37,19 +41,35 @@ const playerCardEl = document.querySelector("#player-card");
 const computerCardEl = document.querySelector("#computer-card");
 
 /*----------------------- Functions ----------------------------*/
-const resetGame =() =>{
-  deck;
-  let newDeck;
-  let playerDeck;
-  let computerDeck;
-  let playerCard;
-  let computerCard;
-  let winner = null;
-}
+function init(){
+   // Clear all the deck arrays
+  newDeck = [];
+  playerDeck = [];
+  computerDeck = [];
+  playerCard = null;
+  computerCard = null;
+  winner = false;
+
+   deck = [
+  { suits: ["♥️", "♦️", "♣️", "♠️"] },
+  {
+    ranks: [
+      "A","2","3", "4","5","6", "7","8","9", "10","J", "Q","K",],
+  },
+  { values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] },
+];
+  // Reset DOM
+  playerCardEl.textContent = "";
+  computerCardEl.textContent = "";
+  msgEl.textContent = "Click shuffle to start a new game!";
+  computerDeckEl.textContent = "0";
+  playerDeckEl.textContent = "0";
+  
+};
+init();
 
 // creates the deck and shuffles it and splits it in half
 const StartGame = (event) =>{
-  resetGame();
   createDeck();
   shuffleDeck(newDeck);
   // console.log(newDeck);
@@ -57,12 +77,6 @@ const StartGame = (event) =>{
   updateDeckCount();
   displayCardUpdates();
 }
-
-const playGame = () =>{
-  drawCards();
-}
-
-
 
 /* ------ Deck Functions ------ */
 // creates all the combination of suits and values for each card
@@ -106,11 +120,11 @@ const drawCards = () => {
   console.log(computerCard.value);
 
   if(playerCard.value > computerCard.value){
-    msgEl.innerText = 'Win'
+    msgEl.innerText = 'You Win!'
     playerDeck.push(playerCard)
     playerDeck.push(computerCard)
   }else if(computerCard.value > playerCard.value){
-    msgEl.innerText = 'Lose'
+    msgEl.innerText = 'You Lose!'
     computerDeck.push(playerCard)
     computerDeck.push(computerCard)
   }else{
@@ -120,6 +134,12 @@ const drawCards = () => {
   }
   updateDeckCount();
   displayCardUpdates();
+}
+
+const tieRound = () =>{
+  if(playerCard.value === computerCard.value){
+
+  }
 }
 
 function updateDeckCount() {
@@ -135,7 +155,9 @@ const displayCardUpdates = () =>{
 
 
 /*----------------------- Event Listeners ----------------------------*/
-startGameEl.addEventListener("click",StartGame);
+
+startGameEl.addEventListener('click', StartGame)
+// resetGame.addEventListener("click",reset);
 drawCardEl.addEventListener("click",drawCards);
 
 
