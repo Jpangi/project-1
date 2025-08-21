@@ -48,12 +48,14 @@ body {
     border-radius: 5%;
     padding: 5px;
     color: white;
+    
 }
 .nav-bar:hover{
     background-color:  #ec3b38;
     cursor: pointer;
     transform: scale(1.10);
     box-shadow: 0px 0px 5px rgba(7, 7, 7, 0.5);
+   
 }
 h1{
     font-weight: 200;
@@ -73,6 +75,7 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 70px;
     padding: 20px;
     gap: 10px;
     width: auto;
@@ -178,6 +181,36 @@ main{
     transform: scale(1.10);
     box-shadow: 5px 5px 20px rgba(7, 7, 7, 0.5);
 }
+
+
+#warBtn{
+    margin: 10px;
+  font-size: 25px;
+  font-weight: 600;
+  background-color: transparent;
+  border: 3px solid rgba(0,0,0,.1);
+  width: 200px;
+  height: 50px;
+  border-radius: 20%;
+  background-color: #CD1C18;
+  color: white;
+  transition: background-color 0.3s ;
+  
+}
+#warBtn {
+  border-radius: 50px 50px 50px 50px; /* big curve */
+}
+#warBtn{
+    border-radius: 50px 50px 50px 50px; /* big curve */
+}
+
+#warBtn:hover{
+    background-color: #ec3b38;
+    cursor: pointer;
+    transform: scale(1.10);
+    box-shadow: 5px 5px 20px rgba(7, 7, 7, 0.5);
+}
+
 /* Icons */
 .player-head{
     font-size: .5em;

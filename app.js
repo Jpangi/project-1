@@ -21,8 +21,9 @@ let playerDeck = [];
 let computerDeck = [];
 let playerCard =[];
 let computerCard =[];
+let playerPot = [];
+let computerPot = [];
 let winner = false;
-let inRound = false;
 
 /*----------------------- Element references -------------------*/
 const startScreenDis = document.getElementById("start-screen");
@@ -39,6 +40,7 @@ const computerDeckEl = document.querySelector("#computer-deck");
 const playerDeckEl = document.querySelector("#player-deck");
 const playerCardEl = document.querySelector("#player-card");
 const computerCardEl = document.querySelector("#computer-card");
+
 
 /*----------------------- Functions ----------------------------*/
 function init(){
@@ -116,36 +118,35 @@ const splitDeck = () => {
 // draw cards from top of deck
 const drawCards = () => {
   playerCard = playerDeck.shift();
-  console.log(playerCard.value);
   computerCard = computerDeck.shift();
-  console.log(computerCard.value);
 
+  if (playerDeck.length < 4) {
+    msgEl.innerHTML = "Computer wins the War! Click Reset to restart the game";
+  }
+  if (computerDeck.length < 4) {
+    msgEl.innerHTML = "Player wins the War! Click Reset to restart the game";
+  }
   if(playerCard.value > computerCard.value){
-    msgEl.innerText = 'You Win!'
+    msgEl.innerText = 'You Win the battle!'
     playerDeck.push(playerCard)
     playerDeck.push(computerCard)
   }else if(computerCard.value > playerCard.value){
-    msgEl.innerText = 'You Lose!'
+    msgEl.innerText = 'You Lose the battle!'
     computerDeck.push(playerCard)
     computerDeck.push(computerCard)
+  }else if(computerCard.value === playerCard.value){
+    msgEl.innerText = 'You both suffer losses'
   }else{
-    msgEl.innerText = 'Draw'
-    playerDeck.push(playerCard)
-    computerDeck.push(computerCard)
+    console.log('edgecase');
   }
   updateDeckCount();
   displayCardUpdates();
 }
 
-const tieRound = () =>{
-  if(playerCard.value === computerCard.value){
-
-  }
-}
-
 function updateDeckCount() {
   computerDeckEl.innerText = computerDeck.length
   playerDeckEl.innerText = playerDeck.length
+  console.log(computerDeck.length + playerDeck.length);
 }
 
 // updates what the deck shows on the dom for each player
@@ -157,10 +158,9 @@ const displayCardUpdates = () =>{
 
 /*----------------------- Event Listeners ----------------------------*/
 
-startGameEl.addEventListener('click', StartGame)
+startGameEl.addEventListener('click', StartGame);
 resetGame.addEventListener("click",init);
 drawCardEl.addEventListener("click",drawCards);
-
 
 
 
