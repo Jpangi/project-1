@@ -59,14 +59,14 @@ function init(){
   { values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] },
 ];
   // Reset DOM
-  playerCardEl.textContent = "";
-  computerCardEl.textContent = "";
+  playerCardEl.textContent = "♣️";
+  computerCardEl.textContent = "♦️";
   msgEl.textContent = "Click shuffle to start a new game!";
   computerDeckEl.textContent = "0";
   playerDeckEl.textContent = "0";
   
 };
-init();
+
 
 // creates the deck and shuffles it and splits it in half
 const StartGame = (event) =>{
@@ -75,7 +75,8 @@ const StartGame = (event) =>{
   // console.log(newDeck);
   splitDeck();
   updateDeckCount();
-  displayCardUpdates();
+  playerCardEl.textContent = "♣️";
+  computerCardEl.textContent = "♦️";
 }
 
 /* ------ Deck Functions ------ */
@@ -157,7 +158,7 @@ const displayCardUpdates = () =>{
 /*----------------------- Event Listeners ----------------------------*/
 
 startGameEl.addEventListener('click', StartGame)
-// resetGame.addEventListener("click",reset);
+resetGame.addEventListener("click",init);
 drawCardEl.addEventListener("click",drawCards);
 
 
