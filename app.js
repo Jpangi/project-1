@@ -1,190 +1,125 @@
 // board
 
-/*----------------------- variables -------------------*/
-let deck = [
-  { suits: ["♥️", "♦️", "♣️", "♠️"] },
-  {
-    ranks: [
-      "A","2","3", "4","5","6", "7","8","9", "10","J", "Q","K",],
-  },
-  { values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] },
-];
-
-
-
-const suits = deck[0].suits;
-const ranks = deck[1].ranks;
-const values = deck[2].values;
-
-let newDeck = [];
-let playerDeck = [];
-let computerDeck = [];
-let playerCard =[];
-let computerCard =[];
-let playerPot = [];
-let computerPot = [];
-let winner = false;
-
 /*----------------------- Element references -------------------*/
-const startScreenDis = document.getElementById("start-screen");
-const startScreenBtn = document.getElementById("start-btn");
-const gameScreen = document.getElementById('game-screen');
 const msgEl = document.querySelector("#msg");
-const playEl = document.querySelector("#play-btn");
-const dealEl = document.querySelector("#deal-cards");
-const drawCardEl = document.querySelector("#draw-card");
-const startGameEl = document.querySelector("#shuffle-deck");
-const resetGame = document.getElementById('reset-game')
-// display elements for deck size
-const computerDeckEl = document.querySelector("#computer-deck");
 const playerDeckEl = document.querySelector("#player-deck");
+const computerDeckEl = document.querySelector("#computer-deck");
 const playerCardEl = document.querySelector("#player-card");
 const computerCardEl = document.querySelector("#computer-card");
 
+const shuffleBtn = document.getElementById("shuffle-deck");
+const resetBtn = document.getElementById("reset-game");
+const drawBtn = document.getElementById("draw-card");
 
-/*----------------------- Functions ----------------------------*/
-function init(){
-   // Clear all the deck arrays
-  newDeck = [];
-  playerDeck = [];
-  computerDeck = [];
-  playerCard = null;
-  computerCard = null;
-  winner = false;
 
-   deck = [
-  { suits: ["♥️", "♦️", "♣️", "♠️"] },
-  {
-    ranks: [
-      "A","2","3", "4","5","6", "7","8","9", "10","J", "Q","K",],
+/*----------------------- Game Object -------------------*/
+const game = {
+  suits: ["♥️", "♦️", "♣️", "♠️"],
+  ranks: ["A","2","3","4","5","6","7","8","9","10","J","Q","K"],
+  values: [1,2,3,4,5,6,7,8,9,10,11,12,13],
+
+  newDeck: [],
+  playerDeck: [],
+  computerDeck: [],
+  playerCard: null,
+  computerCard: null,
+  winner: false,
+
+  init() {
+    this.newDeck = [];
+    this.playerDeck = [];
+    this.computerDeck = [];
+    this.playerCard = null;
+    this.computerCard = null;
+    this.winner = false;
+
+    msgEl.textContent = "Click shuffle to start a new game!";
+    playerDeckEl.textContent = "0";
+    computerDeckEl.textContent = "0";
+    playerCardEl.textContent = "♣️";
+    computerCardEl.textContent = "♦️";
   },
-  { values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] },
-];
-  // Reset DOM
-  playerCardEl.textContent = "♣️";
-  computerCardEl.textContent = "♦️";
-  msgEl.textContent = "Click shuffle to start a new game!";
-  computerDeckEl.textContent = "0";
-  playerDeckEl.textContent = "0";
-  
-};
 
-
-// creates the deck and shuffles it and splits it in half
-const StartGame = (event) =>{
-  createDeck();
-  shuffleDeck(newDeck);
-  // console.log(newDeck);
-  splitDeck();
-  updateDeckCount();
-  playerCardEl.textContent = "♣️";
-  computerCardEl.textContent = "♦️";
-}
-
-/* ------ Deck Functions ------ */
-// creates all the combination of suits and values for each card
-const createDeck = () => {
-  // loop through deck[i].suits[i] and store that in a card array
-  // as an object of card : suitsRanks and value : value
-  for (let i = 0; i < suits.length; i++) {
-    for (let j = 0; j < ranks.length; j++) {
-      newDeck.push({ card: `${suits[i]} ${ranks[j]}`, value: values[j] });
+  createDeck() {
+    this.newDeck = [];
+    for (let i = 0; i < this.suits.length; i++) {
+      for (let j = 0; j < this.ranks.length; j++) {
+        this.newDeck.push({ card: `${this.suits[i]} ${this.ranks[j]}`, value: this.values[j] });
+      }
     }
-  }
-  return newDeck;
+  },
+
+  shuffleDeck(deck) {
+    for (let i = deck.length - 1; i >= 1; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+  },
+
+  splitDeck() {
+    this.playerDeck = this.newDeck.slice(0, 26);
+    this.computerDeck = this.newDeck.slice(26, 52);
+  },
+
+  startGame() {
+    this.createDeck();
+    this.shuffleDeck(this.newDeck);
+    this.splitDeck();
+    this.updateDeckCount();
+    msgEl.textContent = "Game started! Click Draw.";
+    playerCardEl.textContent = "♣️";
+    computerCardEl.textContent = "♦️";
+  },
+
+  drawCards() {
+    this.playerCard = this.playerDeck.shift();
+    this.computerCard = this.computerDeck.shift();
+
+    if (this.playerDeck.length < 4) {
+      msgEl.innerHTML = "Computer wins the War! Click Reset.";
+      return;
+    }
+    if (this.computerDeck.length < 4) {
+      msgEl.innerHTML = "Player wins the War! Click Reset.";
+      return;
+    }
+
+    if (this.playerCard.value > this.computerCard.value) {
+      msgEl.innerText = 'You Win the battle!';
+      this.playerDeck.push(this.playerCard, this.computerCard);
+    } else if (this.computerCard.value > this.playerCard.value) {
+      msgEl.innerText = 'You Lose the battle!';
+      this.computerDeck.push(this.playerCard, this.computerCard);
+    } else {
+      msgEl.innerText = 'You both suffer losses';
+    }
+
+    this.updateDeckCount();
+    this.displayCardUpdates();
+  },
+
+  updateDeckCount() {
+    playerDeckEl.innerText = this.playerDeck.length;
+    computerDeckEl.innerText = this.computerDeck.length;
+  },
+
+  displayCardUpdates() {
+    playerCardEl.textContent = this.playerCard.card;
+    computerCardEl.textContent = this.computerCard.card;
+  },
 };
 
-function shuffleDeck(deck) {
-  // fisher yates shuffle algorithm
-  for (let i = deck.length - 1; i >= 1; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [deck[i], deck[j]] = [deck[j], deck[i]];
-  }
-  return deck;
-}
 
-const splitDeck = () => {
-  playerDeck = newDeck.slice(0, 26);
-  computerDeck = newDeck.slice(26, 52);
-  console.log('Player Deck:',playerDeck);
-  console.log('Computer Deck:',computerDeck);
-};
+/*----------------------- Event Listeners -------------------*/
+shuffleBtn.addEventListener("click", () => game.startGame());
+resetBtn.addEventListener("click", () => game.init());
+drawBtn.addEventListener("click", () => game.drawCards());
+
+
+// initialize
+game.init();
 
 
 
 
-/* ------- game logic function ------*/
 
-// draw cards from top of deck
-const drawCards = () => {
-  playerCard = playerDeck.shift();
-  computerCard = computerDeck.shift();
-
-  if (playerDeck.length < 4) {
-    msgEl.innerHTML = "Computer wins the War! Click Reset to restart the game";
-  }
-  if (computerDeck.length < 4) {
-    msgEl.innerHTML = "Player wins the War! Click Reset to restart the game";
-  }
-  if(playerCard.value > computerCard.value){
-    msgEl.innerText = 'You Win the battle!'
-    playerDeck.push(playerCard)
-    playerDeck.push(computerCard)
-  }else if(computerCard.value > playerCard.value){
-    msgEl.innerText = 'You Lose the battle!'
-    computerDeck.push(playerCard)
-    computerDeck.push(computerCard)
-  }else if(computerCard.value === playerCard.value){
-    msgEl.innerText = 'You both suffer losses'
-  }else{
-    console.log('edgecase');
-  }
-  updateDeckCount();
-  displayCardUpdates();
-}
-
-function updateDeckCount() {
-  computerDeckEl.innerText = computerDeck.length
-  playerDeckEl.innerText = playerDeck.length
-  console.log(computerDeck.length + playerDeck.length);
-}
-
-// updates what the deck shows on the dom for each player
-const displayCardUpdates = () =>{
-  playerCardEl.textContent = playerCard.card
-  computerCardEl.textContent = computerCard.card
-}
-
-
-/*----------------------- Event Listeners ----------------------------*/
-
-startGameEl.addEventListener('click', StartGame);
-resetGame.addEventListener("click",init);
-drawCardEl.addEventListener("click",drawCards);
-
-
-
-
-/* ----- guide ---- */
-
-
-
-// create a deck of cards
-// shuffles it
-
-// split the deck of cards in half
-  // show number of cards for each player on DOM
-  // update Message to say hit play button
-
-// draws a card and updates it in the DOM
-// if player > comp or comp > player give the 2 cards to whoever won
-  // update Message "player or comp WON round"
-  // adds the two cards to the back of the deck and subracts the card from the loser
-
-  // if cards are === value slice out 3 more cards and compare the 3rd card
-  // if player > comp or comp > player give the 2 cards to whoever won
-  // update Message "player or comp WON round"
-  // adds the all cards to the back of the deck and subracts the cards from the loser
-
-
-  // if player or computer has no more cards update message player or computer Wins Game
