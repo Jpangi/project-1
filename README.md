@@ -1,169 +1,57 @@
-# War Card Game
-This project is a simple implementation of the card game War using vanilla JavaScript, HTML, and DOM manipulation. The game pits the player against the computer in a battle of drawn cards until one player runs out of cards.
+# 🎮 Game Description
+![WAR](imgs/47A7049B-7173-42DC-81E4-48C39E550100.jpeg)
+**WAR** is a digital version of the classic card game “War,” built with JavaScript, HTML, and CSS.
 
-## How to play WAR!
-1. The deck is split evenly between two players.
+In War, two players (you vs. computer) split a deck of cards in half. The two players each get one half of the deck to draw from. The players then draw cards from the top of the deck. The player with the higher card wins the round and collects both cards. If there’s a tie, a "tie" is triggered where each player loses both cards drawn. The game continues until one player runs out of cards.
 
-2. Each player flips the top card of their pile.
+I chose this project because “War” is a game i used to play a lot with my grandparents and brother growing up. So it hold special meaning to me.
 
-3. The higher card wins, and that player takes both cards and puts them on the bottom of their pile.
+##  Getting Started
 
-4. if the cards are equal, it’s a “war”: each player places 2  cards face down, then another face-up card. The higher face-up card wins all the cards.
+Deployed Game: Coming Soon
 
-5. The game keeps going until one player has all the cards (they win).
+Planning Materials: [Link to planning materials] (insert your Google Doc, Trello board, or notes link here)
 
+### How to Play
 
+1. Press the Start button to begin.
 
-## Features
-- Creates a standard 52-card deck (suits, ranks, and values).
+2. Click Shuffle Deck to start the game.
 
-- Uses the Fisher-Yates shuffle algorithm to shuffle the deck.
+3. Click Draw to play a round.
 
-- Splits the deck into two equal halves: Player and Computer.
+4. The higher card wins both cards.
 
-- Allows drawing of cards each round:
+5. If there’s a tie, a "tie" function destroys both cards.
 
-- Higher card wins → winner takes both cards.
+6. The game ends when one player has all the cards.
 
-- Tie results in each player keeping their card.
+7. Click the Reset to start another game
 
-- Updates the DOM with card visuals, deck counts, and messages.
+##  Attributions
+[Prismic](https://prismic.io/blog/css-background-effects) - Animated Backgrounds for start screen
 
-- Includes reset and shuffle new deck functionality.
+MDN Web Docs
+ – Reference for JavaScript, HTML, and CSS.
 
-## Game Flow
+[CSS flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+ – Styling tips and layout resources.
 
-1. **Shuffle Deck**:
-Creates and shuffles a full deck, then splits into player/computer decks.
 
-2. **Draw Cards**:
-Player and Computer each draw the top card.
-Compare values: winner takes both cards.
+##  Technologies Used
 
-3. **Update Board**:
-Cards displayed on the DOM.
-Deck counts updated.
+**JavaScript** – Game logic and DOM manipulation
 
-4. **Endgame**:
-When one player runs out of cards → game over.
+**HTML** – Structure and layout
 
-## Code Structure
+**CSS** – Styling and UI design
 
-### Variables
-- **deck** → Base definition of suits, ranks, and values.
+##  Next Steps (Stretch Goals)
 
-- **newDeck** → Shuffled full 52-card deck.
+Add sound effects and animations.
 
-- **playerDeck** / **computerDeck** → Split half decks.
+Add a draw 4 cards and compare function
 
-- **playerCard** / **computerCard** → Currently drawn cards.
+Add multiplayer (two-player mode).
 
-- **winner** → Game state flags.
-
-``` Javascript
-let deck, suits, ranks, values;
-let newDeck = [];
-let playerDeck = [];
-let computerDeck = [];
-let playerCard =[];
-let computerCard =[];
-let winner = false;
-```
-### Element References
-- Handles updates to UI elements such as buttons, deck counts, and card displays.
-``` Javascript
-// start screen
-const startScreenDis = document.getElementById("start-screen");
-const startScreenBtn = document.getElementById("start-btn");
-// main game
-const gameScreen = document.getElementById('game-screen');
-const msgEl = document.querySelector("#msg");
-const playEl = document.querySelector("#play-btn");
-const dealEl = document.querySelector("#deal-cards");
-const drawCardEl = document.querySelector("#draw-card");
-const startGameEl = document.querySelector("#shuffle-deck");
-const resetGame = document.getElementById('reset-game')
-// display elements for deck/cards
-const computerDeckEl = document.querySelector("#computer-deck");
-const playerDeckEl = document.querySelector("#player-deck");
-const playerCardEl = document.querySelector("#player-card");
-const computerCardEl = document.querySelector("#computer-card");
-```
-
-### Functions
-
-1. **init():**
-
-Resets the game state and DOM.
-
-Restores the base deck structure.
-
-Sets default card displays and deck counts.
-
-2. **StartGame():**
-
-Creates a new deck → createDeck().
-
-Shuffles deck → shuffleDeck().
-
-Splits deck → splitDeck().
-
-Updates deck counts and resets board display.
-
-3. **createDeck():**
-
-Generates 52 unique cards by combining suits + ranks.
-
-Assigns each card a numeric value for comparison.
-
-4. **shuffleDeck(deck):**
-
-Implements the Fisher-Yates algorithm for random shuffling.
-
-5. **splitDeck():**
-
-Splits shuffled deck into two 26-card arrays.
-
-6. **drawCards():**
-
-Draws the top card from each player’s deck (shift()).
-
-Compares card values:
-
-Higher value → winner takes both cards.
-
-Tie → both players keep their card.
-
-Updates deck counts and DOM displays.
-
-7. **updateDeckCount():**
-
-Updates the DOM deck counters for player and computer.
-
-8. **displayCardUpdates():**
-
-Updates the DOM to show the last drawn cards.
-
-### Event Listeners
-**Shuffle** → Starts a new game.
-
-**Reset** → Resets the game state.
-
-**Draw** → Plays a round of War.
-
-```Javascript
-startGameEl.addEventListener('click', StartGame);
-resetGame.addEventListener('click', init);
-drawCardEl.addEventListener('click', drawCards);
-```
-
-
-## Next Steps (Optional Enhancements)
-
-- Implement War rule: when tied, each player places 3 cards down and compares the 4th.
-
-- Add game-over screen with winner announcement.
-
-- Style cards with images instead of text symbols.
-
-- Add sound effects and animations for shuffling/drawing.
+Improve mobile responsiveness and accessibility.

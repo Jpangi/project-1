@@ -1,5 +1,3 @@
-// board
-
 /*----------------------- Element references -------------------*/
 const msgEl = document.querySelector("#msg");
 const playerDeckEl = document.querySelector("#player-deck");
@@ -118,8 +116,3 @@ drawBtn.addEventListener("click", () => game.drawCards());
 
 // initialize
 game.init();
-
-
-
-
-
