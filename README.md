@@ -8,7 +8,7 @@ I chose this project because “War” is a game i used to play a lot with my gr
 
 ##  Getting Started
 
-Deployed Game: Coming Soon
+Deployed Game: [WAR](https://jpangi.github.io/project-1/startScreen.html)
 
 Planning Materials: [Link to planning materials] (insert your Google Doc, Trello board, or notes link here)
 
